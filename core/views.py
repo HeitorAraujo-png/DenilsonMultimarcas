@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate, get_user
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
+from .models import Roupa
 import re
 
 # Create your views here.
@@ -30,7 +31,7 @@ def login_view(request):
 def create_account_view(request):
     
     if request.method == 'POST':
-        user = request.POST.get('user').strip()
+        username = request.POST.get('username').strip()
         email = request.POST.get('email').strip()
         senha = request.POST.get('password').strip()
         senha_confirm = request.POST.get('password_confirm').strip()
@@ -40,14 +41,16 @@ def create_account_view(request):
             if not re.search(r'[A-Z]', senha): erro.append('deve conter ao menos um letra maiúscula')
             if not re.search(r'\d', senha): erro.append('deve conter ao menos um dígito')
             if len(senha) < 8: erro.append('deve conter no minimo 8 caracteres')
-            if User.objects.filter(username=user).exists():
-               erro.append('Já tem um user com esse username') 
+            if User.objects.filter(email=email).exists():
+               erro.append('Já tem um user com esse email') 
             if not erro:
-                User.objects.create_user(
+                user = User.objects.create_user(
                     email=email,
                     password=senha,
-                    username=user,
+                    username=username
                 ).save()
+                login(request, user)
+                return redirect('home')
             else:
                 messages.error(request, ', '.join(erro))
         elif senha != senha_confirm:
@@ -55,3 +58,6 @@ def create_account_view(request):
         else:
             messages.error(request, 'Email invalido')
     return render(request, 'core/create_account.html')
+
+def home_view(request):
+    return render(request, 'core/home.html', {'roupas': Roupa.objects.filter(is_promo=False), 'promo': Roupa.objects.filter(is_promo=True)})

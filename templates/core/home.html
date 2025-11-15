@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+
+{% block content %}
+
+<style>
+
+    .product-card {
+        transition: all 0.2s;
+    }
+    .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+        }
+        .price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .old-price {
+            text-decoration: line-through;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: #ffe600 !important;
+        }
+        .search-bar input {
+            border-radius: 20px;
+        }
+    </style>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+        <a class="navbar-brand" href="#">Denilson Multimarcas</a>
+        
+        <div class="collapse navbar-collapse ms-3">
+            <form class="d-flex search-bar w-100">
+                <input class="form-control me-2" type="search" placeholder="Buscar produtos..." aria-label="Search">
+            </form>
+        </div>
+        
+        <a href="#" class="btn btn-warning ms-3">Entrar</a>
+        <button id="themeToggle" class="btn btn-secondary position-fixed bottom-0 end-0 m-3">
+            Alternar Tema
+        </button>
+</nav>
+
+
+<!-- Conteúdo -->
+<body>
+    
+<div class="container my-5">
+    {% if promo %}
+        
+    <h2 class="mb-4">Ofertas do dia</h2>
+    <div class="row g-4">
+        
+        {% for roupa_promo in promo %}
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="card product-card p-2">
+                {% if produto.img %}
+                    <img src="{{ roupa_promo.img.url }}" class="card-img-top" alt="Produto">
+                {% endif %}
+                <div class="card-body">
+                    <h6 class="card-title">{{ roupa_promo.name }}</h6>
+                    
+                    <p class="price">R$ {{ roupa_promo.price }}</p>
+                    <p class="old-price">R$ {{ roupa_promo.price_promo }}</p>
+                    
+                    <button class="btn btn-primary w-100 mt-2">Comprar</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        
+    </div>
+    {% endif %}
+    <h2 class="mb-4">Outros Itens</h2>
+        <div class="row g-4">
+            {% for produtos in roupas %}
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="card product-card p-2">
+                        {% if produto.img %}
+                            <img src="{{ produtos.img.url }}" class="card-img-top" alt="Produto">
+                        {% endif %}
+                        <div class="card-body">
+                            <h6 class="card-title">{{ produtos.name }}</h6>
+                            
+                            <p class="price">R$ {{ produtos.price }}</p>
+                            
+                            <button class="btn btn-primary w-100 mt-2">Comprar</button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        
+    </div>
+</div>
+=
+
+
+<script>
+    const html = document.documentElement;
+    const toggleBtn = document.getElementById("themeToggle");
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+        html.setAttribute("data-bs-theme", savedTheme);
+    }
+
+    toggleBtn.addEventListener("click", () => {
+        let current = html.getAttribute("data-bs-theme");
+        let next = current === "dark" ? "light" : "dark";
+
+        html.setAttribute("data-bs-theme", next);
+
+        // Salva o tema escolhido
+        localStorage.setItem("theme", next);
+    });
+</script>
+</body>
+
+{% endblock %}
