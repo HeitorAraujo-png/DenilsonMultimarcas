@@ -11,8 +11,10 @@ class Roupa(models.Model):
     price_promo = models.FloatField(blank=True, null=True)
     is_promo = models.BooleanField(default=False, blank=False)
     
+    
     def clean(self):
         if self.is_promo and self.price < self.price_promo:
             raise ValidationError('O preço promocional é maior que o preço comum!')
+        if not self.is_promo and self.price_promo:
+            self.price_promo = None
         return super().clean()
-    

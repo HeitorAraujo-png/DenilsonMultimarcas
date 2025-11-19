@@ -3,6 +3,9 @@
 {% block title %} Login {% endblock %}
 
 {% block content %}
+<button id="themeToggle" class="btn btn-secondary position-fixed top-0 end-0 m-3">
+  Alternar Tema
+</button>
 <style>
     body {
       min-height: 100vh;
@@ -19,9 +22,6 @@
 </style>
 <body class="d-flex justify-content-center align-items-center vh-100"> 
 
-<button id="themeToggle" class="btn btn-secondary position-fixed top-0 end-0 m-3">
-  Alternar Tema
-</button>
 
 <div class="card shadow login-card p-4">
   <h3 class="text-center mb-4">Login</h3>
@@ -30,7 +30,7 @@
     {% csrf_token %}
     <div class="mb-3">
       <label class="form-label">E-mail ou username</label>
-      <input type="email" class="form-control" name="user" required>
+      <input type="text" class="form-control" name="user" required>
     </div>
     <div class="mb-3">
       <label class="form-label">Senha</label>
@@ -46,6 +46,9 @@
   </div>
   <div class="text-center mt-3">
       <a href="password_reset/">Esqueceu sua senha?</a>
+  </div>
+  <div class="text-center mt-3">
+      <a href="{% url 'home' %}" style="text-decoration: none;">Voltar</a>
   </div>
 </div>
 
