@@ -36,9 +36,9 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 1635.452208445276,
-			"y": 536.4657787983899,
-			"lastActivityTimestamp": 1763617663503,
+			"x": 394.44156803163526,
+			"y": 574.711595577994,
+			"lastActivityTimestamp": 1763668514921,
 			"meta": {}
 		},
 		{
@@ -92,9 +92,9 @@
 			"typeName": "shape"
 		},
 		{
-			"x": -35.1744246851285,
-			"y": 149.36755709881604,
-			"z": 0.6648845661657166,
+			"x": -391.3288546256032,
+			"y": 391.78591699495564,
+			"z": 0.6425262268361275,
 			"meta": {},
 			"id": "camera:page:page",
 			"typeName": "camera"
@@ -378,13 +378,11 @@
 		{
 			"editingShapeId": null,
 			"croppingShapeId": null,
-			"selectedShapeIds": [
-				"shape:AfygGK5PHlWVoSn9jl8-Y"
-			],
-			"hoveredShapeId": "shape:4KTLz52pkvFeI7A52qaMl",
+			"selectedShapeIds": [],
+			"hoveredShapeId": null,
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
-			"focusedGroupId": "shape:DojUQ4tpskaFTNotCh2Oc",
+			"focusedGroupId": "shape:OdgNSSm7UTLj5Jy4uTtZJ",
 			"meta": {},
 			"id": "instance_page_state:page:page",
 			"pageId": "page:page",
@@ -667,7 +665,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "1 OPT: categoria fk"
+									"text": "2 OPT: categoria fk"
 								}
 							]
 						},
@@ -679,7 +677,7 @@
 							"content": [
 								{
 									"type": "text",
-									"text": "2 OPT: categoria charfield max_leagth(150)"
+									"text": "1 OPT: categoria charfield max_leagth(150)"
 								}
 							]
 						}
@@ -838,17 +836,11 @@
 		{
 			"followingUserId": null,
 			"opacityForNextShape": 1,
-			"stylesForNextShape": {
-				"tldraw:geo": "rectangle",
-				"tldraw:dash": "draw",
-				"tldraw:horizontalAlign": "middle",
-				"tldraw:font": "mono",
-				"tldraw:fill": "semi"
-			},
+			"stylesForNextShape": {},
 			"brush": null,
 			"scribbles": [],
 			"cursor": {
-				"type": "ew-resize",
+				"type": "default",
 				"rotation": 0
 			},
 			"isFocusMode": false,
@@ -858,7 +850,7 @@
 			"screenBounds": {
 				"x": 0,
 				"y": 0,
-				"w": 1392,
+				"w": 1092,
 				"h": 738
 			},
 			"insets": [
@@ -876,7 +868,7 @@
 			"isFocused": true,
 			"devicePixelRatio": 1,
 			"isCoarsePointer": false,
-			"isHoveringCanvas": true,
+			"isHoveringCanvas": false,
 			"openMenus": [],
 			"isChangingStyle": false,
 			"isReadonly": false,
