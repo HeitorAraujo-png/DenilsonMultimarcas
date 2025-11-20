@@ -106,6 +106,7 @@
         {% endfor %}
     </div>
     {% endif %}
+    {% if page_obj %}
     <h2 class="mb-4">Outros Itens</h2>
     <div class="row g-4">
         {% for produtos in page_obj %}
@@ -124,11 +125,12 @@
             </div>
         {% endfor %}
     </div>
+    {% endif %}
     </div>
 </div>
 <!-- pag -->
-<nav aria-label="Navegação de páginas">
-    <ul class="pagination justify-content-center mt-4" ">
+<nav aria-label="Navegação de páginas"  class="position-fixed bottom-0 start-50 translate-middle-x mb-3">
+    <ul class="pagination justify-content-center ">
 
         {% if page_obj.has_previous %}
             <li class="page-item">
