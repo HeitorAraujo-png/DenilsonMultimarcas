@@ -10,7 +10,8 @@ class Roupa(models.Model):
     price = models.FloatField(blank=False, null=False)
     price_promo = models.FloatField(blank=True, null=True)
     is_promo = models.BooleanField(default=False, blank=False)
-    
+    # categoria
+    # desc
     
     def clean(self):
         if self.is_promo and self.price < self.price_promo:

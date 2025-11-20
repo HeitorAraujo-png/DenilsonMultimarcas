@@ -4,7 +4,22 @@
 
 <style>
     .product-card {
-        transition: all 0.2s;
+        height: 100%;                  /* força todos os cards a ocuparem a mesma altura */
+        display: flex;
+        flex-direction: column;
+        transition: all 0.2s;   
+    }
+    .product-card img {
+        height: 180px;                 /* define um tamanho fixo para todas as imagens */
+        width: 100%;
+        object-fit: cover;             /* corta sem distorcer */
+        border-radius: 8px;
+    }
+    .product-card .card-body {
+        flex-grow: 1;                  /* empurra o botão para baixo */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
     .product-card:hover {
             transform: translateY(-4px);
@@ -27,68 +42,55 @@
     .search-bar input {
         border-radius: 20px;
     }
+    a{
+        text-decoration: none;
+        color: white;
+    }
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-    <a class="navbar-brand">Denilson Multimarcas</a>
-    
-    <div class="collapse navbar-collapse ms-3">
-        <form class="d-flex search-bar w-100" method="get" action="">
-            <input class="form-control me-2" type="search" placeholder="pesquisa..." aria-label="Search" name="search">
-            <button type="submit" class="btn btn-outline-success" >Pesquisar</button>
-        </form>
+<nav class="navbar navbar-dark bg-dark px-2">
+    <div class="w-100 text-center text-md-start mb-2">
+        <a class="navbar-brand fs-4">Denilson Multimarcas</a>
     </div>
-        <button id="themeToggle" class="btn btn-secondary m-3">
-            Alternar Tema
-        </button>
-
+    <div class="w-100 d-flex flex-wrap justify-content-center justify-content-md-end mb-2 gap-2">
+        <a href="/promocoes/" class="btn btn-secondary mx-1">Promoções</a>
+        <a href="/produtos/" class="btn btn-secondary mx-1">Produtos</a>
+        <a href="/contato/" class="btn btn-secondary mx-1">Contato</a>
+        {% if nivel %}
+            <a href="/admin/" class="btn btn-secondary mx-1">Admin</a>
+        {% endif %}
+        {% if login %}
+            <a href="/logout/" class="btn btn-warning mx-1">Logout</a>
+        {% else %}
+            <a href="/login/" class="btn btn-warning mx-1">Login</a>
+        {% endif %}
+    </div>
+    <form class="d-flex w-100" method="get" action="">
+        <input class="form-control me-2" type="search" placeholder="pesquisa..." aria-label="Search" name="search">
+        <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+    </form>
 </nav>
-<div class="d-flex">
-    <!-- Sidebar -->
+<!-- <button id="themeToggle" class="btn btn-secondary m-1">
+    Alternar Tema
+</button> -->
+<!-- <div class="d-flex">
     <div id="sidebar" class="bg-dark text-white p-3" 
-         style="width:250px; min-height:100vh; position:fixed;">
+         style="width:250px; min-height:100vh; position:relative;">
          
         <h4 class="mb-4">Menu</h4>
 
-        <ul class="nav flex-column">
-            <li class="nav-item mb-2">
-                <a href="/" class="nav-link text-white">🏠 Início</a>
-            </li>
-            <li class="nav-item mb-2">
-                <a href="promocoes/" class="nav-link text-white">🔥 Promoções</a>
-            </li>
-            <li class="nav-item mb-2">
-                <a href="produtos/" class="nav-link text-white">🛒 Produtos</a>
-            </li>
-            <li class="nav-item mb-2">
-                <a href="contato/" class="nav-link text-white">📞 Contato</a>
-            </li>
-            {% if nivel %}
-            <li class="nav-item mb-2">
-                <a href="admin/" class="nav-link text-white">💻 Admin</a>
-            </li>
-            {% endif %}
-            {% if login %}
-                <li class="nav-item mt-3">
-                    <a href="logout/" class="btn btn-warning w-100 bottom-0 m-3">Logout</a>
-                </li>
-            {% else %}
-                <li class="nav-item mt-3">
-                    <a href="login/" class="btn btn-warning w-100 bottom-0 m-3" >Login</a>
-                </li>
-            {% endif %}
-        </ul>
+        
     </div>
-
+</div>   -->
     <!-- Conteúdo principal -->
-<div class="flex-grow-1" style="margin-left:250px;">
-<div class="container my-5">
+<div class="d-flex">
+    <div class="container my-5">
     {% if promo %}
     <h2 class="mb-4">Ofertas do dia</h2>
     <div class="row g-4">
         {% for roupa_promo in promo %}
             <div class="col-6 col-md-4 col-lg-3">
-                <div class="card product-card p-2">
+                <div class="card product-card p-2" >
                     {% if roupa_promo.img %}
                         <img src="{{ roupa_promo.img.url }}" class="card-img-top" alt="Produto">
                     {% endif %}
@@ -105,67 +107,66 @@
     </div>
     {% endif %}
     <h2 class="mb-4">Outros Itens</h2>
-        <div class="row g-4">
-            {% for produtos in page_obj %}
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="card product-card p-2">
-                        {% if produtos.img %}
-                            <img src="{{ produtos.img.url }}" class="card-img-top" alt="Produto">
-                        {% endif %}
-                        <div class="card-body">
-                            <h6 class="card-title">{{ produtos.name }}</h6>
-                            <p class="price">R$ {{ produtos.price }}</p>
-                            <p class="unit">Unidades restantes: {{ produtos.unit }}</p>
-                            <button class="btn btn-primary w-100 mt-2">Comprar</button>
-                        </div>
+    <div class="row g-4">
+        {% for produtos in page_obj %}
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="card product-card p-2">
+                    {% if produtos.img %}
+                        <img src="{{ produtos.img.url }}" class="card-img-top" alt="Produto">
+                    {% endif %}
+                    <div class="card-body">
+                        <h6 class="card-title">{{ produtos.name }}</h6>
+                        <p class="price">R$ {{ produtos.price }}</p>
+                        <p class="unit">Unidades restantes: {{ produtos.unit }}</p>
+                        <button class="btn btn-primary w-100 mt-2">Comprar</button>
                     </div>
                 </div>
-            {% endfor %}
             </div>
-        </div>
-</div>
+        {% endfor %}
+    </div>
+    </div>
 </div>
 <!-- pag -->
 <nav aria-label="Navegação de páginas">
-    <ul class="pagination justify-content-center mt-4">
+    <ul class="pagination justify-content-center mt-4" ">
 
         {% if page_obj.has_previous %}
             <li class="page-item">
-                <a class="page-link" href="?page=1" >&laquo; Primeira</a>
+                <a style="font-size: small;" class="page-link" href="?page=1" >&laquo;Primeira</a>
             </li>
             <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                <a style="font-size: small;" class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
             </li>
         {% else %}
             <li class="page-item disabled">
-                <span class="page-link">&laquo; Primeira</span>
+                <span style="font-size: small;" class="page-link">&laquo; Primeira</span>
             </li>
             <li class="page-item disabled">
-                <span class="page-link">Anterior</span>
+                <span style="font-size: small;" class="page-link">Anterior</span>
             </li>
         {% endif %}
 
         <!-- Página atual -->
         <li class="page-item active">
-            <span class="page-link">
+            <span style="font-size: small;" class="page-link">
                 Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
             </span>
         </li>
 
         {% if page_obj.has_next %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Próxima</a>
+                <a style="font-size: small;" class="page-link" href="?page={{ page_obj.next_page_number }}">Próxima</a>
             </li>
 
             <li class="page-item">
-                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+                <a style="font-size: small;" class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
             </li>
         {% else %}
             <li class="page-item disabled">
-                <span class="page-link">Próxima</span>
+                <span style="font-size: small;" class="page-link">Próxima</span>
             </li>
             <li class="page-item disabled">
-                <span class="page-link">Última &raquo;</span>
+                <span style="font-size: small;" class="page-link">Última &raquo;</span>
             </li>
         {% endif %}
 
