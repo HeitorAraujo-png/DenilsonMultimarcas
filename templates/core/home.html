@@ -174,23 +174,5 @@
 
     </ul>
 </nav>
-<script>
-    const html = document.documentElement;
-    const toggleBtn = document.getElementById("themeToggle");
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-        html.setAttribute("data-bs-theme", savedTheme);
-    }
-
-    toggleBtn.addEventListener("click", () => {
-        let current = html.getAttribute("data-bs-theme");
-        let next = current === "dark" ? "light" : "dark";
-
-        html.setAttribute("data-bs-theme", next);
-
-        // Salva o tema escolhido
-        localStorage.setItem("theme", next);
-    });
-</script>
 
 {% endblock %}
