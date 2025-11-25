@@ -1,7 +1,105 @@
 {% extends 'base.html' %}
 
-{% block title %} Admin {% endblock %}
-
+{% block title %} Roupa C {% endblock %}
+{% block AddButtom %}
+  <a href="/admin/" class="btn btn-secondary mx-1" >Voltar</a>
+{% endblock %}
 {% block content %}
+<div class="container ">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-5">
+                <label for="name" class="form-label">Nome do produto:</label>
+                <input type="text" name="name" class="form-control" id="formText" required>    
+            </div>
+            <div class="col-5">
+                <label for="price" class="form-label">Valor do produto</label>
+                <input type="number" name="price" class="form-control" required>
+            </div>
+            <div class="col-2 align-self-end">
+                <div class="container text-center">
+                    <input class="form-check-input" type="checkbox" id="gridCheck" value="true" name="check">
+                    <label class="form-check-label" for="gridCheck">
+                        É promoção?
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="formFile" class="form-label">Imagem do produto</label>
+                <input class="form-control" type="file" id="formFile" name="img" required>
+            </div>
+            <div class="col">
+                <label for="price_promo" class="form-label">Valor do promocional</label>
+                <input type="number" name="price_promo" class="form-control">
+                    <div class="invalid-feedback">
+                        Preencha o valor promocional.
+                    </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="unit" class="form-label">Em estoque</label>
+                <input type="number" name="unit" class="form-control" required>
+            </div>
+            <div class="col">
+                <!-- tamanho -->
+                <label for="DataListSize" class="form-label">Tamanho</label>
+                <input class="form-control" list="datalistOptions" id="DataListSize" name="size" required placeholder="Clique aqui...">
+                <datalist id="datalistOptions">
+                    <option value="PP">
+                    <option value="P">
+                    <option value="M">
+                    <option value="G">
+                    <option value="GG">
+                    <option value="XG">
+                    <option value="XGG">
+                </datalist>
+            </div>
+            <div class="col">
+                <label for="marca" class="form-label">Marca do produto:</label>
+                <input type="text" name="marca" class="form-control" id="formText" required>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="DataListCategory" class="form-label">Categoria</label>
+                <input class="form-control" list="CategoryListOptions" id="DataListCategory" name="categoria" placeholder="Clique aqui...">
+                <datalist id="CategoryListOptions">
+                    {% for category in categorys %}
+                        <option value="{{ category.Name}}">
+                    {% endfor %}
+                </datalist>
+            </div>
+            <div class="col">                
+                <label for="espec" class="form-label">Especificação:</label>
+                <input type="text" name="espec" class="form-control" id="formText"> 
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Texto da descrição</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="text"></textarea>
+        </div>
+        <br>
+        <div class="mb-3 text-center">
+            <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
+        </div>
+        </form>
+</div>
 
+<script>
+    const promoCheck = document.getElementById('gridCheck');
+    const pricePromo = document.getElementById("input[name='price_promo']");
+    promoCheck.addEventListener('change', function (){
+        if (this.checked) {
+            pricePromo.setAttribute('required', '');
+            pricePromo.classList.add('is-valid');
+        } else {
+            pricePromo.removeAttribute("required");
+            pricePromo.classList.remove("is-invalid");
+        }
+    });
+</script>
 {% endblock %}

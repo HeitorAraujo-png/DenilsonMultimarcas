@@ -1,7 +1,36 @@
 {% extends 'base.html' %}
 
 {% block title %} Admin {% endblock %}
-
+{% block AddButtom %}
+  <a href="/admin/" class="btn btn-secondary mx-1" >Voltar</a>
+{% endblock %}
 {% block content %}
-
+    <div class="container ">
+    <form method="post">
+        {% csrf_token %}
+            <div class="mb-3 d-flex justify-content-center gap-3">
+                <div class="card" style="width: 18rem;">
+                    {% if clothe.Img %}
+                        <img src="{{ clothe.Img.url }}" class="card-img" alt="Produto">
+                    {% endif %}
+                    <div class="card-body">
+                        <h6 class="card-title">{{ clothe.Name }}</h6>
+                        <p class="price">Promo R$ {{ clothe.Price_promo }}</p>
+                        <p class="price">Normal R$ {{ clothe.Price }}</p>
+                        <p class="unit">Unidades restantes: {{ clothe.Unit }}</p>
+                    </div>
+                    <button type="submit" class="btn btn-warning">Deletar</button>
+                </div>
+                <div class="card" >
+                    <div class="card-body">
+                        <p class="card-text">Categoria: {{ description.Fk_category.Name }}</p>
+                        <p class="card-text">Marca: {{ description.Mark }}</p>
+                        <p class="card-text">Tamanho: {{ description.Size }}</p>
+                        <p class="card-text">Especificação: {{ description.Specification }}</p>
+                        <p class="card-text">Texto: {{ description.Text }}</p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock %}

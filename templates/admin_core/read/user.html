@@ -1,7 +1,122 @@
 {% extends 'base.html' %}
 
-{% block title %} Admin {% endblock %}
-
+{% block title %} Usuarios {% endblock %}
+{% block AddButtom %}
+  <a href="/admin/" class="btn btn-secondary mx-1" >Voltar</a>
+{% endblock %}
 {% block content %}
+<div class="d-flex">
+    <div class="container my-5">
+        <form method="get" class="mb-3" id="filterForm">
+
+            <input type="hidden" name="order" value="{{ request.GET.order }}">
+            <input type="hidden" name="filter" value="{{ request.GET.filter }}">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                    Ordenar
+                </button>
+                <ul class="dropdown-menu">
+                    <li><button type="submit" class="dropdown-item" name="order" value="id">Id</button></li>
+                    <li><button type="submit" class="dropdown-item" name="order" value="username">Nome</button></li>
+                </ul>
+            </div>
+
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                    Filtrar
+                </button>
+                <ul class="dropdown-menu">
+                    <li><button type="submit" class="dropdown-item" name="filter" value="1">Ativo</button></li>
+                    <li><button type="submit" class="dropdown-item" name="filter" value="0">Desativado</button></li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <input type="radio" class="btn-check"
+                    name="asc" id="option5" value=""
+                    {% if request.GET.asc|default:"" == "" %}checked{% endif %}
+                    onchange="document.getElementById('filterForm').submit();">
+
+                <label class="btn btn-outline-primary" for="option5">Crescente</label>
+
+                <input type="radio" class="btn-check"
+                    name="asc" id="option6" value="-"
+                    {% if request.GET.asc == "-" %}checked{% endif %}
+                    onchange="document.getElementById('filterForm').submit();">
+
+                <label class="btn btn-outline-primary" for="option6">Decrescente</label>
+            </div>
+
+        </form>
+        <div class="row g-4">
+        {% for user in page_obj %}
+            <div class="col-6 col-md-4 col-lg-3">
+                <div class="card product-card p-2">
+                    <div class="card-body">
+                        <h6 class="card-title">{{ user.username }}</h6>
+                        <p>{{ user.email }}</p>
+                        <p>{% if user.is_superuser %}
+                            Super usuario
+                        {% elif user.is_staff%}
+                            Administrador
+                        {% else %}
+                            Usuario
+                        {% endif %}</p>
+                        <p>Id: {{ user.id }}</p>
+                        <div class="btn-group mt-2 w-100" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-primary"><a href="{% url 'delete_user' id=user.id %}">Deletar</a></button>
+                            <button type="button" class="btn btn-primary"><a href="{% url 'update_user' id=user.id %}">Atualizar</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<nav aria-label="Navegação de páginas"  class="position-fixed bottom-0 start-50 translate-middle-x mb-3">
+    <ul class="pagination justify-content-center ">
+
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a style="font-size: small;" class="page-link" href="?page=1" >&laquo;Primeira</a>
+            </li>
+            <li class="page-item">
+                <a style="font-size: small;" class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span style="font-size: small;" class="page-link">&laquo; Primeira</span>
+            </li>
+            <li class="page-item disabled">
+                <span style="font-size: small;" class="page-link">Anterior</span>
+            </li>
+        {% endif %}
+
+        <!-- Página atual -->
+        <li class="page-item active">
+            <span style="font-size: small;" class="page-link">
+                Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+            </span>
+        </li>
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a style="font-size: small;" class="page-link" href="?page={{ page_obj.next_page_number }}">Próxima</a>
+            </li>
+
+            <li class="page-item">
+                <a style="font-size: small;" class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span style="font-size: small;" class="page-link">Próxima</span>
+            </li>
+            <li class="page-item disabled">
+                <span style="font-size: small;" class="page-link">Última &raquo;</span>
+            </li>
+        {% endif %}
+
+    </ul>
+</nav>
 
 {% endblock %}

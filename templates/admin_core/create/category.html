@@ -1,7 +1,21 @@
 {% extends 'base.html' %}
 
 {% block title %} Admin {% endblock %}
-
+{% block AddButtom %}
+  <a href="/admin/" class="btn btn-secondary mx-1" >Voltar</a>
+{% endblock %}
 {% block content %}
-
+    <div class="container ">
+    <form method="post">
+        {% csrf_token %}
+            <div class="mb-3">
+                <label for="categoria" class="form-label">Nome da categoria:</label>
+                <input type="text" name="categoria" class="form-control" id="formText" required>    
+            </div>
+        <br>
+        <div class="mb-3 text-center">
+            <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
+        </div>
+    </form>
+</div>
 {% endblock %}

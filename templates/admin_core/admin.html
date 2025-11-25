@@ -2,6 +2,9 @@
 
 {% block title %} Admin {% endblock %}
 
+{% block AddButtom %}
+  <a href="/" class="btn btn-secondary mx-1" >Voltar</a>
+{% endblock %}
 {% block content %}
 
 <style>
@@ -10,33 +13,34 @@
     color: #ffe600 !important;
   }
 </style>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-  <a class="navbar-brand">Denilson Multimarcas</a>
-  <button id="themeToggle" class="btn btn-secondary m-3">
-    Alternar Tema
-  </button>
-  <button class="btn btn-secondary m-3">
-    <a href="/" style="color: white;text-decoration: none;">Voltar</a>
-  </button>
+
 </nav>
 <div class="container text-center">
   <div class="row g-4">
     <div class="col-6 col-md-4 col-lg-3">
-      <a href="view-clothes" class="btn btn-primary">Ver roupas</a>
+      <a href="read/clothe/" class="btn btn-primary">Ver roupas</a>
     </div>
     <div class="col-6 col-md-4 col-lg-3">
-      <a href="view-users" class="btn btn-primary">Ver clientes</a>
+      <a href="read/user/" class="btn btn-primary">Ver usuarios</a>
     </div>
     <div class="col-6 col-md-4 col-lg-3">
-      <a href="create-clothe" class="btn btn-primary">Cadastrar roupa</a>
+      <a href="read/category/" class="btn btn-primary">Ver categorias</a>
     </div>
     <div class="col-6 col-md-4 col-lg-3">
-      <a href="create-category" class="btn btn-primary">Cadastrar categoria</a>
+      <a href="read/img-clothe/" class="btn btn-primary">Ver imagens de roupas</a>
+    </div>
+
+    <div class="col-6 col-md-4 col-lg-3">
+      <a href="create/clothe/" class="btn btn-primary">Criar roupa</a>
     </div>
     <div class="col-6 col-md-4 col-lg-3">
-      <a href="create-img-clothe" class="btn btn-primary">Cadastrar imagens <br> de uma roupa</a></div>
+      <a href="create/user/" class="btn btn-primary">Criar usuario</a>
+    </div>
     <div class="col-6 col-md-4 col-lg-3">
-      <a href="create-user" class="btn btn-primary">Cadastrar cliente</a>
+      <a href="create/category/" class="btn btn-primary">Criar categoria</a>
+    </div>
+    <div class="col-6 col-md-4 col-lg-3">
+      <a href="create/img-clothe/" class="btn btn-primary">Criar imagem de roupa</a>
     </div>
 
   </div>

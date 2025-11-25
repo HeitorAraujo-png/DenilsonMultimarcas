@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 {% block title %} Home {% endblock %}
+{% block search %}
+    <form class="d-flex w-100" method="get" action="">
+        <input class="form-control me-2" type="search" placeholder="pesquisa..." aria-label="Search" name="search">
+        <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+    </form>
+{% endblock %}
 {% block content %}
-
 <style>
     .product-card {
         height: 100%;                  /* força todos os cards a ocuparem a mesma altura */
@@ -47,29 +52,6 @@
         color: white;
     }
 </style>
-
-<nav class="navbar navbar-dark bg-dark px-2">
-    <div class="w-100 text-center text-md-start mb-2">
-        <a class="navbar-brand fs-4">Denilson Multimarcas</a>
-    </div>
-    <div class="w-100 d-flex flex-wrap justify-content-center justify-content-md-end mb-2 gap-2">
-        <a href="/promocoes/" class="btn btn-secondary mx-1">Promoções</a>
-        <a href="/produtos/" class="btn btn-secondary mx-1">Produtos</a>
-        <a href="/contato/" class="btn btn-secondary mx-1">Contato</a>
-        {% if nivel %}
-            <a href="/admin/" class="btn btn-secondary mx-1">Admin</a>
-        {% endif %}
-        {% if login %}
-            <a href="/logout/" class="btn btn-warning mx-1">Logout</a>
-        {% else %}
-            <a href="/login/" class="btn btn-warning mx-1">Login</a>
-        {% endif %}
-    </div>
-    <form class="d-flex w-100" method="get" action="">
-        <input class="form-control me-2" type="search" placeholder="pesquisa..." aria-label="Search" name="search">
-        <button class="btn btn-outline-success" type="submit">Pesquisar</button>
-    </form>
-</nav>
 <!-- <button id="themeToggle" class="btn btn-secondary m-1">
     Alternar Tema
 </button> -->
@@ -91,14 +73,14 @@
         {% for roupa_promo in promo %}
             <div class="col-6 col-md-4 col-lg-3">
                 <div class="card product-card p-2" >
-                    {% if roupa_promo.img %}
-                        <img src="{{ roupa_promo.img.url }}" class="card-img-top" alt="Produto">
+                    {% if roupa_promo.Img %}
+                        <img src="{{ roupa_promo.Img.url }}" class="card-img-top" alt="Produto">
                     {% endif %}
                     <div class="card-body">
-                        <h6 class="card-title">{{ roupa_promo.name }}</h6>
-                        <p class="price">R$ {{ roupa_promo.price_promo }}</p>
-                        <p class="old-price">R$ {{ roupa_promo.price }}</p>
-                        <p class="unit">Unidades restantes: {{ roupa_promo.unit }}</p>
+                        <h6 class="card-title">{{ roupa_promo.Name }}</h6>
+                        <p class="price">R$ {{ roupa_promo.Price_promo }}</p>
+                        <p class="old-price">R$ {{ roupa_promo.Price }}</p>
+                        <p class="unit">Unidades restantes: {{ roupa_promo.Unit }}</p>
                         <button class="btn btn-primary w-100 mt-2">Comprar</button>
                     </div>
                 </div>
@@ -112,13 +94,13 @@
         {% for produtos in page_obj %}
             <div class="col-6 col-md-4 col-lg-3">
                 <div class="card product-card p-2">
-                    {% if produtos.img %}
-                        <img src="{{ produtos.img.url }}" class="card-img-top" alt="Produto">
+                    {% if produtos.Img %}
+                        <img src="{{ produtos.Img.url }}" class="card-img-top" alt="Produto">
                     {% endif %}
                     <div class="card-body">
-                        <h6 class="card-title">{{ produtos.name }}</h6>
-                        <p class="price">R$ {{ produtos.price }}</p>
-                        <p class="unit">Unidades restantes: {{ produtos.unit }}</p>
+                        <h6 class="card-title">{{ produtos.Name }}</h6>
+                        <p class="price">R$ {{ produtos.Price }}</p>
+                        <p class="unit">Unidades restantes: {{ produtos.Unit }}</p>
                         <button class="btn btn-primary w-100 mt-2">Comprar</button>
                     </div>
                 </div>

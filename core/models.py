@@ -32,6 +32,7 @@ class Category(models.Model):
 class ClotheImage(models.Model):
     Id = models.AutoField(auto_created=True, blank=False, primary_key=True)
     Img = models.ImageField(upload_to='clothes/', blank=True)
+    Active = models.BooleanField(default=True, blank=False)
     Fk_clothe = models.ForeignKey(Clothe, null=False, on_delete=models.CASCADE)
     
     
